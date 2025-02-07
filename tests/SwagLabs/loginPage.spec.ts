@@ -25,5 +25,29 @@ test.describe("Login Page", () => {
         name: "Login",
       }),
     ).toBeVisible();
+
+    //h4 Accepted Usernames
+    await expect(
+      page.getByRole("heading", {
+        name: "Accepted usernames are:",
+      }),
+    ).toBeVisible();
+
+    //Usernames are displayed
+    await expect(page.getByText("standard_user")).toBeVisible();
+    await expect(page.getByText("locked_out_user")).toBeVisible();
+    await expect(page.getByText("problem_user")).toBeVisible();
+    await expect(page.getByText("performance_glitch_user")).toBeVisible();
+    await expect(page.getByText("error_user")).toBeVisible();
+    await expect(page.getByText("visual_user")).toBeVisible();
+
+    //h4 Passwords for users
+    await expect(
+      page.getByRole("heading", {
+        name: "Password for all users:",
+      }),
+    ).toBeVisible();
+    //Password
+    await expect(page.getByText("secret_sauce")).toBeVisible();
   });
 });
