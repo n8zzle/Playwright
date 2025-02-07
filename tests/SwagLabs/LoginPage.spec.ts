@@ -1,18 +1,21 @@
 import { test, expect } from "@playwright/test";
 
-test.describe("Login Page", () => {
+test.describe("Login Page Test Cases:", () => {
   test.beforeEach(async ({ page }) => {
     await page.goto("https://www.saucedemo.com");
   });
 
-  test("Should have correct metadata and elements", async ({ page }) => {
+  test("Correct Metadata", async ({ page }) => {
     // Check if the title is correct
     await expect(page).toHaveTitle("Swag Labs");
+  });
 
+  test("Correct Logo", async ({ page }) => {
     //Check the Logo
-    await expect(page.locator(".login_logo")).toBeVisible();
     await expect(page.locator(".login_logo")).toHaveText("Swag Labs");
+  });
 
+  test("Form Component is correct", async ({ page }) => {
     // Check Username input
     await expect(page.getByPlaceholder("Username")).toBeVisible();
 
@@ -25,7 +28,9 @@ test.describe("Login Page", () => {
         name: "Login",
       }),
     ).toBeVisible();
+  });
 
+  test("Credential Component", async ({ page }) => {
     //h4 Accepted Usernames
     await expect(
       page.getByRole("heading", {
@@ -51,7 +56,7 @@ test.describe("Login Page", () => {
     await expect(page.getByText("secret_sauce")).toBeVisible();
   });
 
-  test("Log-in and redirect", async ({ page }) => {
+  test("Should log-in and redirect", async ({ page }) => {
     const username = page.getByPlaceholder("Username");
     const password = page.getByPlaceholder("Password");
     const button = page.getByRole("button", {
@@ -62,5 +67,25 @@ test.describe("Login Page", () => {
     await password.click();
     await password.fill("secret_sauce");
     await button.click();
+    await page.waitForURL("https://www.saucedemo.com/inventory.html");
+    // console.log(page.url());
+  });
+
+  test("Error Message Test", async ({ page }) => {
+    const username = page.getByPlaceholder("Username");
+    const password = page.getByPlaceholder("Password");
+    const button = page.getByRole("button", {
+      name: "Login",
+    });
+    await username.click();
+    await username.fill("test");
+    await password.click();
+    await password.fill("test");
+    await button.click();
+    expect(
+      page.getByRole("button", {
+        name: "Epic sadface: Username and password do not match any user in this service",
+      }),
+    );
   });
 });
