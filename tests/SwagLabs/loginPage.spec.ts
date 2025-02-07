@@ -50,4 +50,17 @@ test.describe("Login Page", () => {
     //Password
     await expect(page.getByText("secret_sauce")).toBeVisible();
   });
+
+  test("Log-in and redirect", async ({ page }) => {
+    const username = page.getByPlaceholder("Username");
+    const password = page.getByPlaceholder("Password");
+    const button = page.getByRole("button", {
+      name: "Login",
+    });
+    await username.click();
+    await username.fill("standard_user");
+    await password.click();
+    await password.fill("secret_sauce");
+    await button.click();
+  });
 });
