@@ -11,10 +11,17 @@ test.describe('SauceDemo Tests', () => {
 
   });
 
-  test('Successful login with standard user', async ({ page }) => {
-    await expect(page.locator('.inventory_container')).toBeVisible();
-    await expect(page).toHaveURL('https://www.saucedemo.com/inventory.html');
-  });
+  test('Successful Logout', async ({ page }) => {
+    //opening Navigation Bar
+    await page.click('#react-burger-menu-btn');
+    //Checking that Nav Bar is opened
+    await expect(page.locator('.bm-item-list')).toBeVisible();
+    //Clicking on Logout Button 
+    await page.click('#logout_sidebar_link');
+    //Checking that we are Successfuly signed_out
+    await expect(page.locator('.login_wrapper')).toBeVisible();
+    await expect(page).toHaveURL('https://www.saucedemo.com/');
+  })
 
   test('Add item to cart', async ({ page }) => {
     // Add first item to cart

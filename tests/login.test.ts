@@ -20,6 +20,8 @@ test.describe('SauceDemo Login Page', () => {
     await page.click('#login-button');
     // Verify successful login by checking for inventory container
     await expect(page.locator('.inventory_container')).toBeVisible();
+    await expect(page).toHaveURL('https://www.saucedemo.com/inventory.html');
+
   });
 
   test('Failed login with locked out user', async ({ page }) => {
