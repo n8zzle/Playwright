@@ -33,6 +33,25 @@ test.describe('SauceDemo Tests', () => {
     await expect(page.locator('.cart_item')).toHaveCount(1);
   });
 
+  test('Add all items to cart', async ({ page }) => {
+    // Loop while there are still "Add to cart" buttons on the page
+    while (true) {
+      // Get the first "Add to cart" button (if any)
+      const button = page.locator('button', { hasText: 'Add to cart' }).first();
+
+      // If no button is found, break the loop
+      if (await button.count() === 0) break;
+
+      // Click the button
+      await button.waitFor({ state: 'visible' });
+      await button.click();
+
+      // Optional: wait between clicks to prevent any flakiness
+      await page.waitForTimeout(200);
+    }
+    await expect(page.locator('[data-test="shopping-cart-badge"]')).toHaveText('6');
+  });
+
   test('Complete purchase flow', async ({ page }) => {
     // Add item
     await page.click('#add-to-cart-sauce-labs-backpack');
@@ -50,4 +69,6 @@ test.describe('SauceDemo Tests', () => {
     // Verify completion
     await expect(page.locator('.complete-header')).toHaveText('Thank you for your order!');
   });
+
+
 });
