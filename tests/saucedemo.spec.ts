@@ -50,10 +50,31 @@ test.describe("SauceDemo Tests", () => {
     );
   });
 
-  test("Filtering Price Low-to-High ", async ({ page }) => {});
+  test("Filtering Price Low-to-High ", async ({ page }) => {
+    await page.selectOption('.product_sort_container', { value: 'lohi' });
+    const item = await page.locator(".inventory_item").first()
+
+    const itemName = await item.locator('.inventory_item_name').textContent();
+    const itemPrice = await item.locator('.inventory_item_price').textContent();
+
+    console.log(`Item name: ${itemName}`);
+    console.log(`Item price: ${itemPrice}`);
+    await expect(itemName).toBe("Sauce Labs Onesie")
+    await expect(itemPrice).toBe("$7.99")
+  });
 
   test("Filtering Price High-to-Low ", async ({ page }) => {
-    console.log("TODO:");
+    await page.selectOption('.product_sort_container', { value: 'hilo' });
+    const item = await page.locator(".inventory_item").first()
+
+    const itemName = await item.locator('.inventory_item_name').textContent();
+    const itemPrice = await item.locator('.inventory_item_price').textContent();
+
+    console.log(`Item name: ${itemName}`);
+    console.log(`Item price: ${itemPrice}`);
+    await expect(itemName).toBe("Sauce Labs Fleece Jacket")
+    await expect(itemPrice).toBe("$49.99")
+
   });
 
   test("Name (A to Z)", async ({ page }) => {
