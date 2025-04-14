@@ -11,6 +11,23 @@ test.describe("SauceDemo Login Page", () => {
     await expect(page).toHaveTitle("Swag Labs");
   });
 
+  test("Verify that all neccessary components exist", async ({ page }) => {
+    // Logo Component
+    await expect(page.locator(".login_container")).toBeVisible()
+    const button = await page.locator(".login_logo")
+    await expect(button).toBeVisible();
+    await expect(button).toHaveText("Swag Labs");
+    //Login Wrapper - Credential Menu
+    await expect(page.locator(".login_wrapper")).toBeVisible()
+    await expect(page.locator("#user-name")).toBeVisible()
+    await expect(page.locator("#password")).toBeVisible()
+    await expect(page.locator("#login-button")).toBeVisible()
+    //Login Wrapper - Account Menu
+    await expect(page.locator("#login_credentials")).toBeVisible()
+    await expect(page.locator(".login_password")).toBeVisible()
+
+  })
+
   test("Successful login", async ({ page }) => {
     // Fill in username and password
     await page.fill("#user-name", "standard_user");
