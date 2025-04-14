@@ -78,11 +78,31 @@ test.describe("SauceDemo Tests", () => {
   });
 
   test("Name (A to Z)", async ({ page }) => {
-    console.log("TODO:");
+    await page.selectOption('.product_sort_container', { value: 'az' });
+    const item = await page.locator(".inventory_item").first()
+
+    const itemName = await item.locator('.inventory_item_name').textContent();
+    const itemPrice = await item.locator('.inventory_item_price').textContent();
+
+    console.log(`Item name: ${itemName}`);
+    console.log(`Item price: ${itemPrice}`);
+    await expect(itemName).toBe("Sauce Labs Backpack")
+    await expect(itemPrice).toBe("$29.99")
+
   });
 
   test("Name (Z to A)", async ({ page }) => {
-    console.log("TODO:");
+    await page.selectOption('.product_sort_container', { value: 'za' });
+    const item = await page.locator(".inventory_item").first()
+
+    const itemName = await item.locator('.inventory_item_name').textContent();
+    const itemPrice = await item.locator('.inventory_item_price').textContent();
+
+    console.log(`Item name: ${itemName}`);
+    console.log(`Item price: ${itemPrice}`);
+    await expect(itemName).toBe("Test.allTheThings() T-Shirt (Red)")
+    await expect(itemPrice).toBe("$15.99")
+
   });
 
   test("Complete purchase flow", async ({ page }) => {
