@@ -1,6 +1,6 @@
 const { test, expect } = require("@playwright/test");
 
-test.describe("SauceDemo Tests", () => {
+test.describe("SauceDemo Main Page ", () => {
   test.beforeEach(async ({ page }) => {
     // Navigate to saucedemo.com before each test
     await page.goto("https://www.saucedemo.com/");
@@ -9,6 +9,10 @@ test.describe("SauceDemo Tests", () => {
     // Click login button
     await page.click("#login-button");
   });
+
+  test("Correct page title", async ({ page }) => {
+    await expect(page).toHaveTitle("Swag Labs");
+  })
 
   test("Successful Logout", async ({ page }) => {
     //opening Navigation Bar
