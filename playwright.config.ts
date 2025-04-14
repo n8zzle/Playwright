@@ -1,7 +1,7 @@
 const { defineConfig, devices } = require('@playwright/test');
 
 module.exports = defineConfig({
-  testDir: './tests',
+  testDir: './',
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
@@ -14,6 +14,12 @@ module.exports = defineConfig({
     video: 'retain-on-failure',
   },
   projects: [
+    {
+      testMatch: [
+        'test/**/*.ts',
+        'test-examples/**/*.ts'
+      ]
+    },
     {
       name: 'chromium',
       use: { ...devices['Desktop Chrome'] },
