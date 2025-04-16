@@ -16,8 +16,9 @@ module.exports = defineConfig({
   projects: [
     {
       testMatch: [
-        'test/**/*.ts',
-        'test-examples/**/*.ts'
+        'SwagLabs/**/*.ts',
+        'HerokuApp/**/*.ts',
+        'UITAP/**/*.ts'
       ]
     },
     {
