@@ -25,6 +25,11 @@ test.describe("HerokuApp Testing", () => {
     await expect(page.getByRole('link', { name: 'Add/Remove Elements' })).toBeVisible()
     await expect(page.getByRole('link', { name: 'Add/Remove Elements' })).toHaveAttribute('href', '/add_remove_elements');
 
+    await expect(page.getByRole('link', { name: 'Basic Auth' })).toBeVisible()
+    await expect(page.getByRole('link', { name: 'Basic Auth' })).toHaveAttribute('href', '/basic_auth');
+
+    await expect(page.getByRole('link', { name: 'Broken Images' })).toBeVisible()
+    await expect(page.getByRole('link', { name: 'Broken Images' })).toHaveAttribute('href', '/broken_images');
 
     //Footer
     await expect(page.locator("#page-footer")).toBeVisible()
